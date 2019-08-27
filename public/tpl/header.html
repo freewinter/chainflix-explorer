@@ -38,12 +38,13 @@
     <!-- BEGIN MEGA MENU -->
     <div class="hor-menu hor-menu-light">
       <ul class="nav navbar-nav">
-        <li class="active">
+        <li ng-class="{active: $state.$current.name==='home'}">
           <a href="/">Home</a>
         </li>
-        <li ng-show="settings.useRichList">
+        <li ng-class="{active: $state.$current.name==='accounts'}" ng-show="settings.useRichList">
           <a href="/accounts">Accounts</a>
         </li>
+        <!--
         <li>
           <a href="/token">Tokens</a>
         </li>
@@ -128,6 +129,7 @@
             </li>
           </ul>
         </li>
+        -->
       </ul>
     </div>
     <!-- END MEGA MENU -->

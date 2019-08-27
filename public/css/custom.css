@@ -2,6 +2,7 @@ div.page-logo {overflow: visible;}
 img.logo-default {
     max-height: 150px;
     height: 100px;
+    max-width: 280px;
 }
 .create{background-color:#36c6d3}
 .truncate-txhash, .truncate-addrhash{
@@ -148,3 +149,4 @@ li.ng-scope {
 .mini-logo {
   height: 1.2em;
 }
+.extra-data{word-break: break-all;}
