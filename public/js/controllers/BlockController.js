@@ -1,5 +1,5 @@
 angular.module('BlocksApp').controller('BlockController', function($stateParams, $rootScope, $scope, $http, $location) {
-    $scope.$on('$viewContentLoaded', function() {   
+    $scope.$on('$viewContentLoaded', function() {
         // initialize core components
         App.initAjax();
         //TableAjax.init();
@@ -19,7 +19,7 @@ angular.module('BlocksApp').controller('BlockController', function($stateParams,
         $location.path("/err404/block/" + $scope.blockNum);
       else {
         $scope.block = resp.data;
-        $scope.block.datetime = new Date(resp.data.timestamp*1000); 
+        $scope.block.datetime = new Date(resp.data.timestamp*1000);
       }
     });
 })

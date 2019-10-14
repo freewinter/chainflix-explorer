@@ -67,11 +67,19 @@ exports.data = async (req, res) => {
   if ('tx' in req.body) {
     var txHash = req.body.tx.toLowerCase();
 
+    if (!txHash || txHash === '') {
+      txHash = '0x0'
+    }
+
     Transaction.findOne({ hash: txHash }).lean(true).exec(async (err, doc) => {
+      let txResponse = {}
+
       if (err || !doc) {
         web3.eth.getTransaction(txHash, (err, tx) => {
           if (err || !tx) {
             console.error(`TxWeb3 error :${err}`);
+            return;
+            /*
             if (!tx) {
               web3.eth.getBlock(txHash, (err, block) => {
                 if (err || !block) {
@@ -87,6 +95,7 @@ exports.data = async (req, res) => {
               res.write(JSON.stringify({ 'error': true }));
               res.end();
             }
+            */
           } else {
             const ttx = tx;
             ttx.value = etherUnits.toEther(new BigNumber(tx.value), 'wei');
@@ -216,6 +225,10 @@ exports.data = async (req, res) => {
       blockNumOrHash = parseInt(req.body.block);
     }
 
+    if (!blockNumOrHash) {
+      blockNumOrHash = -1
+    }
+
     Block.findOne({ $or: [{ hash: blockNumOrHash }, { number: blockNumOrHash }] },
       { '_id': 0 }).lean(true).exec('findOne', (err, doc) => {
       if (err || !doc) {
@@ -252,6 +265,10 @@ exports.data = async (req, res) => {
       console.log(blockNumOrHash);
     } else {
       blockNumOrHash = parseInt(arr[0]);
+    }
+
+    if (!blockNumOrHash) {
+      blockNumOrHash = -1
     }
 
     if (typeof blockNumOrHash === 'undefined') {
